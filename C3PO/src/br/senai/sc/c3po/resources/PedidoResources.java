@@ -60,10 +60,10 @@ public class PedidoResources {
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void apagaItem(Integer quantidade, @PathParam("cpfCliente") Long cpfCliente,
+	public void apagaItem(@PathParam("cpfCliente") Long cpfCliente,
 			@PathParam("idPedido") int idPedido, @PathParam("idProduto") int idProduto){
 		ItemPedidoDAO dao = new ItemPedidoDAO();
-		dao.apagaItem(idPedido, idProduto, quantidade);
+		dao.apagaItem(idPedido, idProduto);
 	}
 	
 	@Path("{cpfCliente}/{idPedido}/finalizar")
