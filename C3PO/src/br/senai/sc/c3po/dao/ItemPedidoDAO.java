@@ -147,4 +147,13 @@ public class ItemPedidoDAO extends BaseDAO{
 		item.setProduto(produtoDAO.buscaPorId(idProduto));
 		return this.inserir(item);
 	}
+	
+	public boolean apagaItem(int idPedido, int idProduto, Integer quantidade) {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		ItemPedido item = new ItemPedido();
+		item.setIdPedido(idPedido);
+		item.setQuantidade(quantidade);
+		item.setProduto(produtoDAO.buscaPorId(idProduto));
+		return this.deletar(item);
+	}
 }
