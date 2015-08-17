@@ -99,8 +99,8 @@ public class PedidoDAO extends BaseDAO {
 			comando.execute("insert into pedidos (cpf_cliente, cpf_funcionario, "
 					+ "data_pedido, vl_total_pedido, status) values ("
 					+ pedido.getCliente().getCpf()	+ ", "
-					+ pedido.getFuncionario().getCpf() + ", "
-					+ pedido.getDataPedido() + ", '"
+					+ pedido.getFuncionario().getCpf() + ", '"
+					+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pedido.getDataPedido()) + "', "
 					+ pedido.getVlTotalPedido() +  ", '"
 					+ pedido.getStatus() +"')", Statement.RETURN_GENERATED_KEYS);
 			ResultSet keys = comando.getGeneratedKeys();    
@@ -125,11 +125,25 @@ public class PedidoDAO extends BaseDAO {
 		}
 		conectar();
 		try {
-			comando.execute("update pedidos set vl_total_pedido = " + valor);
+			comando.execute("update pedidos set vl_total_pedido = " + valor + " where "
+				+ "id_pedido = " + pedido.getIdPedido());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			fechar();
 		}
+	}
+	
+	public boolean finalizarPedido(int idPedido) {
+		conectar();
+		try{
+			comando.execute("update pedidos set status = 'F' where id_pedido = " + idPedido);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			fechar();
+		}
+		return true;
 	}
 }

@@ -24,7 +24,6 @@ public class ClienteResources {
 		return dao.listaClientes();
 	}
 	
-	
 	@Path("{idCliente}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -35,25 +34,16 @@ public class ClienteResources {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String salvarCliente(Cliente cliente){
+	public void salvarCliente(Cliente cliente){
 		ClienteDAO dao = new ClienteDAO();
-		if(dao.inserir(cliente)){
-			return "Cliente cadastrado com sucesso!";
-		}else{
-			return "Não foi possível cadastrar!";
-		}
+		dao.inserir(cliente);
 	}
 	
 	@Path("{idCLiente}")
 	@DELETE
-	public String deletarCliente(@PathParam("idCliente") Long idCliente){
+	public void deletarCliente(@PathParam("idCliente") Long idCliente){
 		ClienteDAO dao = new ClienteDAO();
-		if(dao.deletar(dao.buscaPorId(idCliente))){
-			return "Cliente apagado com sucesso!";
-		}else{
-			return "Não foi possível apagar!";
-		}
+		dao.deletar(dao.buscaPorId(idCliente));
 	}
-	
 	
 }

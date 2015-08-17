@@ -3,6 +3,7 @@ package br.senai.sc.c3po.resources;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -21,7 +22,7 @@ public class PedidoResources {
 	@Path("{cpfCliente}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Pedido> getListaPediso(@PathParam("cpfCliente") Long cpfCliente){
+	public List<Pedido> getListaPedido(@PathParam("cpfCliente") Long cpfCliente){
 		PedidoDAO dao = new PedidoDAO();
 		return dao.listaPedidos(cpfCliente);
 	}
@@ -39,28 +40,37 @@ public class PedidoResources {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String alteraQuantidadeItem(Integer quantidade, @PathParam("cpfCliente") Long cpfCliente,
+	public void alteraQuantidadeItem(Integer quantidade, @PathParam("cpfCliente") Long cpfCliente,
 			@PathParam("idPedido") int idPedido, @PathParam("idProduto") int idProduto){
 		ItemPedidoDAO dao = new ItemPedidoDAO();
-		if (dao.alterarQuantidadeProduto(idPedido, idProduto, quantidade)){
-			return "Sucesso!";
-		}else{
-			return "Não foi possível alterar!";
-		}
+		dao.alterarQuantidadeProduto(idPedido, idProduto, quantidade);
 	}
 	
 	@Path("{cpfCliente}/{idPedido}/{idProduto}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String insereItem(Integer quantidade, @PathParam("cpfCliente") Long cpfCliente,
+	public void insereItem(Integer quantidade, @PathParam("cpfCliente") Long cpfCliente,
 			@PathParam("idPedido") int idPedido, @PathParam("idProduto") int idProduto){
 		ItemPedidoDAO dao = new ItemPedidoDAO();
-		if (dao.insereItem(idPedido, idProduto, quantidade)){
-			return "Sucesso!";
-		}else{
-			return "Não foi possível alterar!";
-		}
+		dao.insereItem(idPedido, idProduto, quantidade);
 	}
 	
+	@Path("{cpfCliente}/{idPedido}/{idProduto}")
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void apagaItem(@PathParam("cpfCliente") Long cpfCliente,
+			@PathParam("idPedido") int idPedido, @PathParam("idProduto") int idProduto){
+		ItemPedidoDAO dao = new ItemPedidoDAO();
+		dao.apagaItem(idPedido, idProduto);
+	}
+	
+	@Path("{cpfCliente}/{idPedido}/finalizar")
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	public void finalizaPedido (@PathParam("cpfCliente") Long cpfCliente,	@PathParam("idPedido") int idPedido){
+		PedidoDAO dao = new PedidoDAO();
+		dao.finalizarPedido(idPedido);
+	}
 }

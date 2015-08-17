@@ -78,11 +78,11 @@ public class Pedido {
 		this.vlTotalPedido = vlTotalPedido;
 	}
 
-	public List<ItemPedido> getProdutos() {
+	public List<ItemPedido> getItensPedido() {
 		return itensPedido;
 	}
 
-	public void setProdutos(List<ItemPedido> itensPedido) {
+	public void setItensPedido(List<ItemPedido> itensPedido) {
 		this.itensPedido = itensPedido;
 	}
 
