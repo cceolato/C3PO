@@ -76,4 +76,16 @@ public class PedidoResources {
 			return "Não foi possível alterar!";
 		}
 	}
+	
+	@Path("{cpfCliente}/{idPedido}/finalizar}")
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	public String finalizaPedido (@PathParam("cpfCliente") Long cpfCliente,	@PathParam("idPedido") int idPedido){
+		PedidoDAO dao = new PedidoDAO();
+		if(dao.finalizarPedido(idPedido)){
+			return "Sucesso";
+		}else{
+			return "Não foi possível finalizar pedido";
+		}
+	}
 }
