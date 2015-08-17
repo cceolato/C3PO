@@ -45,7 +45,7 @@ public class PedidoResources {
 		if (dao.alterarQuantidadeProduto(idPedido, idProduto, quantidade)){
 			return "Sucesso!";
 		}else{
-			return "N„o foi possÌvel alterar!";
+			return "N√£o foi poss√≠vel alterar!";
 		}
 	}
 	
@@ -59,8 +59,21 @@ public class PedidoResources {
 		if (dao.insereItem(idPedido, idProduto, quantidade)){
 			return "Sucesso!";
 		}else{
-			return "N„o foi possÌvel alterar!";
+			return "N√£o foi poss√≠vel alterar!";
 		}
 	}
 	
+	@Path("{cpfCliente}/{idPedido}/{idProduto}")
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String apagaItem(Integer quantidade, @PathParam("cpfCliente") Long cpfCliente,
+			@PathParam("idPedido") int idPedido, @PathParam("idProduto") int idProduto){
+		ItemPedidoDAO dao = new ItemPedidoDAO();
+		if (dao.apagaItem(idPedido, idProduto, quantidade)){
+			return "Sucesso!";
+		}else{
+			return "N√£o foi poss√≠vel alterar!";
+		}
+	}
 }
