@@ -63,7 +63,7 @@ public class ItemPedidoDAO extends BaseDAO{
 	public boolean deletar(ItemPedido item) {
 		conectar();
 		try {
-			comando.execute("delete from itens_pedidos where id_pedido ="
+			comando.execute("delete from itens_pedidos where id_pedido = "
 					+ item.getIdPedido() + " and id_produto = " 
 					+ item.getProduto().getIdProduto());
 		} catch (SQLException e) {
@@ -153,8 +153,8 @@ public class ItemPedidoDAO extends BaseDAO{
 		PedidoDAO pedidoDAO = new PedidoDAO();
 		ItemPedido item = new ItemPedido();
 		item.setIdPedido(idPedido);
-		boolean retorno = this.deletar(item); 
 		item.setProduto(produtoDAO.buscaPorId(idProduto));
+		boolean retorno = this.deletar(item); 
 		pedidoDAO.atualizarValorPedido(pedidoDAO.buscaPorId(idPedido));
 		return retorno;
 	}
