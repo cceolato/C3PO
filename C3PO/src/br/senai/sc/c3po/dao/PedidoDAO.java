@@ -99,8 +99,8 @@ public class PedidoDAO extends BaseDAO {
 			comando.execute("insert into pedidos (cpf_cliente, cpf_funcionario, "
 					+ "data_pedido, vl_total_pedido, status) values ("
 					+ pedido.getCliente().getCpf()	+ ", "
-					+ pedido.getFuncionario().getCpf() + ", "
-					+ pedido.getDataPedido() + ", '"
+					+ pedido.getFuncionario().getCpf() + ", '"
+					+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pedido.getDataPedido()) + "', "
 					+ pedido.getVlTotalPedido() +  ", '"
 					+ pedido.getStatus() +"')", Statement.RETURN_GENERATED_KEYS);
 			ResultSet keys = comando.getGeneratedKeys();    
