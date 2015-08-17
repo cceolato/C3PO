@@ -133,4 +133,17 @@ public class PedidoDAO extends BaseDAO {
 			fechar();
 		}
 	}
+	
+	public boolean finalizarPedido(int idPedido) {
+		conectar();
+		try{
+			comando.execute("update pedidos set status = 'F' where id_pedido = " + idPedido);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			fechar();
+		}
+		return true;
+	}
 }
