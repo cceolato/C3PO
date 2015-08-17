@@ -3,6 +3,7 @@ package br.senai.sc.c3po.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class PedidoDAO extends BaseDAO {
 				pedido.setStatus(rs.getString("status"));
 				pedido.setCliente(clienteDAO.buscaPorId(rs.getLong("cpf_cliente")));
 				pedido.setFuncionario(funcionarioDAO.buscaPorId(rs.getLong("cpf_funcionario")));
-				pedido.setProdutos(itemDAO.listaItensPedido(pedido.getIdPedido()));
+				pedido.setItensPedido(itemDAO.listaItensPedido(pedido.getIdPedido()));
 				lista.add(pedido);
 			}
 
@@ -64,7 +65,7 @@ public class PedidoDAO extends BaseDAO {
 				pedido.setStatus(rs.getString("status"));
 				pedido.setCliente(clienteDAO.buscaPorId(rs.getLong("cpf_cliente")));
 				pedido.setFuncionario(funcionarioDAO.buscaPorId(rs.getLong("cpf_funcionario")));
-				pedido.setProdutos(itemDAO.listaItensPedido(pedido.getIdPedido()));
+				pedido.setItensPedido(itemDAO.listaItensPedido(pedido.getIdPedido()));
 			}
 
 		} catch (SQLException e) {
@@ -79,7 +80,7 @@ public class PedidoDAO extends BaseDAO {
 		conectar();
 		ItemPedidoDAO itemDAO = new ItemPedidoDAO();
 		try {
-			itemDAO.deletar(pedido.getProdutos());
+			itemDAO.deletar(pedido.getItensPedido());
 			comando.execute("delete from pedidos where id_pedido = "
 					+ pedido.getIdPedido());
 		} catch (SQLException e) {
@@ -108,7 +109,7 @@ public class PedidoDAO extends BaseDAO {
 			     lastKey = keys.getInt(1);    
 			}   
 			pedido.setIdPedido(lastKey);
-			itemDAO.inserir(pedido.getProdutos());
+			itemDAO.inserir(pedido.getItensPedido());
 			this.atualizarValorPedido(pedido);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,7 +121,7 @@ public class PedidoDAO extends BaseDAO {
 
 	public void atualizarValorPedido(Pedido pedido) {
 		Double valor = 0.0;
-		for (ItemPedido item : pedido.getProdutos()){
+		for (ItemPedido item : pedido.getItensPedido()){
 			valor += item.getProduto().getVlProduto() * item.getQuantidade();
 		}
 		conectar();
