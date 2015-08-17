@@ -125,7 +125,8 @@ public class PedidoDAO extends BaseDAO {
 		}
 		conectar();
 		try {
-			comando.execute("update pedidos set vl_total_pedido = " + valor);
+			comando.execute("update pedidos set vl_total_pedido = " + valor + " where "
+				+ "id_pedido = " + pedido.getIdPedido());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
