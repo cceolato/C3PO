@@ -77,7 +77,7 @@ public class PedidoResources {
 		}
 	}
 	
-	@Path("{cpfCliente}/{idPedido}/finalizar}")
+	@Path("{cpfCliente}/{idPedido}/finalizar")
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	public String finalizaPedido (@PathParam("cpfCliente") Long cpfCliente,	@PathParam("idPedido") int idPedido){
