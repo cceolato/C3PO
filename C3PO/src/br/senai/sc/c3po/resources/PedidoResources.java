@@ -36,6 +36,14 @@ public class PedidoResources {
 		return dao.inserir(pedido);
 	}
 	
+	@Path("{cpfCliente}/{idPedido}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Pedido getPedido(@PathParam("cpfCliente") Long cpfCliente, @PathParam("idPedido") int idPedido){
+		PedidoDAO dao = new PedidoDAO();
+		return dao.buscaPorId(idPedido);
+	}
+	
 	@Path("{cpfCliente}/{idPedido}/{idProduto}")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
