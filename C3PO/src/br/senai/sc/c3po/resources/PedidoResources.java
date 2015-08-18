@@ -47,7 +47,6 @@ public class PedidoResources {
 	@Path("{cpfCliente}/{idPedido}/{idProduto}")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public void alteraQuantidadeItem(Integer quantidade, @PathParam("cpfCliente") Long cpfCliente,
 			@PathParam("idPedido") int idPedido, @PathParam("idProduto") int idProduto){
 		ItemPedidoDAO dao = new ItemPedidoDAO();
@@ -57,7 +56,6 @@ public class PedidoResources {
 	@Path("{cpfCliente}/{idPedido}/{idProduto}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public void insereItem(Integer quantidade, @PathParam("cpfCliente") Long cpfCliente,
 			@PathParam("idPedido") int idPedido, @PathParam("idProduto") int idProduto){
 		ItemPedidoDAO dao = new ItemPedidoDAO();
@@ -66,8 +64,6 @@ public class PedidoResources {
 	
 	@Path("{cpfCliente}/{idPedido}/{idProduto}")
 	@DELETE
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public void apagaItem(@PathParam("cpfCliente") Long cpfCliente,
 			@PathParam("idPedido") int idPedido, @PathParam("idProduto") int idProduto){
 		ItemPedidoDAO dao = new ItemPedidoDAO();
@@ -76,8 +72,8 @@ public class PedidoResources {
 	
 	@Path("{cpfCliente}/{idPedido}/finalizar")
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	public void finalizaPedido (@PathParam("cpfCliente") Long cpfCliente,	@PathParam("idPedido") int idPedido){
+	public void finalizaPedido (@PathParam("cpfCliente") Long cpfCliente, 
+			@PathParam("idPedido") int idPedido){
 		PedidoDAO dao = new PedidoDAO();
 		dao.finalizarPedido(idPedido);
 	}
