@@ -28,7 +28,7 @@ public class PedidoDAO extends BaseDAO {
 				pedido.setIdPedido(rs.getInt("id_pedido"));
 //				pedido.setCpfCliente(rs.getLong("cpf_cliente"));
 //				pedido.setCpfFuncionario(rs.getLong("cpf_funcionario"));
-				pedido.setDataPedido(rs.getDate("data_pedido"));
+				pedido.setDataPedido(rs.getTimestamp("data_pedido"));
 				pedido.setVlTotalPedido(rs.getDouble("vl_total_pedido"));
 				pedido.setStatus(rs.getString("status"));
 				pedido.setCliente(clienteDAO.buscaPorId(rs.getLong("cpf_cliente")));
@@ -60,7 +60,7 @@ public class PedidoDAO extends BaseDAO {
 				pedido.setIdPedido(rs.getInt("id_pedido"));
 //				pedido.setCpfCliente(rs.getLong("cpf_cliente"));
 //				pedido.setCpfFuncionario(rs.getLong("cpf_funcionario"));
-				pedido.setDataPedido(rs.getDate("data_pedido"));
+				pedido.setDataPedido(rs.getTimestamp("data_pedido"));
 				pedido.setVlTotalPedido(rs.getDouble("vl_total_pedido"));
 				pedido.setStatus(rs.getString("status"));
 				pedido.setCliente(clienteDAO.buscaPorId(rs.getLong("cpf_cliente")));
@@ -100,7 +100,7 @@ public class PedidoDAO extends BaseDAO {
 			comando.execute("insert into pedidos (cpf_cliente, cpf_funcionario, "
 					+ "data_pedido, vl_total_pedido, status) values ("
 					+ pedido.getCliente().getCpf()	+ ", "
-					+ pedido.getFuncionario().getCpf() + ", '"
+					+ (pedido.getFuncionario() == null ? " null," : pedido.getFuncionario().getCpf()) + ", '"
 					+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(pedido.getDataPedido()) + "', "
 					+ pedido.getVlTotalPedido() +  ", '"
 					+ pedido.getStatus() +"')", Statement.RETURN_GENERATED_KEYS);
